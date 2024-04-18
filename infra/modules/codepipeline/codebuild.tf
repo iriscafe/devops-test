@@ -151,8 +151,8 @@ resource "aws_codebuild_project" "python-api-codebuild" {
 
   environment {
     privileged_mode = true
-    compute_type                = "BUILD_GENERAL1_SMALL"
-    image                       = "aws/codebuild/standard:1.0"
+    compute_type                = "BUILD_GENERAL1_MEDIUM"
+    image                       = "aws/codebuild/standard:5.0"
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
     environment_variable {
@@ -161,7 +161,7 @@ resource "aws_codebuild_project" "python-api-codebuild" {
     }
     environment_variable {
       name = "IMAGE_REPO_NAME"
-      value = "app-repositorio"
+      value = "app_python"
     }
     environment_variable {
       name = "AWS_DEFAULT_REGION"
