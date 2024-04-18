@@ -3,3 +3,9 @@ infra/.terraform/terraform.tfstate
 infra/.terraform/modules/modules.json
 infra/.terraform/providers/registry.terraform.io/hashicorp/aws/5.45.0/linux_amd64/terraform-provider-aws_v5.45.0_x5
 infra/.terraform.lock.hcl
+.env
+infra/.terraform/providers/registry.terraform.io/gavinbunney/kubectl/1.14.0/linux_amd64/LICENSE
+infra/.terraform/providers/registry.terraform.io/gavinbunney/kubectl/1.14.0/linux_amd64/README.md
+infra/.terraform/providers/registry.terraform.io/gavinbunney/kubectl/1.14.0/linux_amd64/terraform-provider-kubectl_v1.14.0
+infra/.terraform/providers/registry.terraform.io/hashicorp/helm/2.5.1/linux_amd64/terraform-provider-helm_v2.5.1_x5
+infra/.terraform/providers/registry.terraform.io/hashicorp/kubernetes/2.29.0/linux_amd64/terraform-provider-kubernetes_v2.29.0_x5

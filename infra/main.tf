@@ -27,3 +27,7 @@ module "codepipeline"{
   source       = "./modules/codepipeline"
   project_name = var.project_name
 }
+
+module "argocd"{
+  source       = "./modules/argocd"
+}
