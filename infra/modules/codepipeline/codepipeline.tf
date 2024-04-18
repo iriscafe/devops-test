@@ -38,6 +38,19 @@ data "aws_iam_policy_document" "codepipeline_policy" {
     effect = "Allow"
 
     actions = [
+      "codestar-connections:UseConnection",
+    ]
+
+    resources = [
+      aws_codestarconnections_connection.github.arn,
+      "${aws_codestarconnections_connection.github.arn}/*"
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+
+    actions = [
       "codebuild:BatchGetBuilds",
       "codebuild:StartBuild",
     ]
@@ -49,11 +62,6 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
   name   = "codepipeline_policy"
   role   = aws_iam_role.codepipeline_role.id
   policy = data.aws_iam_policy_document.codepipeline_policy.json
-}
-
-resource "aws_codestarconnections_connection" "github" {
-  name          = "github-connection"
-  provider_type = "GitHub"
 }
 
 resource "aws_codepipeline" "codepipeline" {
@@ -77,7 +85,7 @@ resource "aws_codepipeline" "codepipeline" {
       output_artifacts = ["source_output"]
       configuration = {
         ConnectionArn    = aws_codestarconnections_connection.github.arn
-        FullRepositoryId = "devops-test"
+        FullRepositoryId = "iriscafe/devops-test"
         BranchName       = "master"
       }
     }
@@ -95,7 +103,7 @@ resource "aws_codepipeline" "codepipeline" {
       version          = "1"
 
       configuration = {
-        ProjectName = aws_codebuild_project.temp-api-codebuild.name
+        ProjectName = aws_codebuild_project.python-api-codebuild.name
       }
     }
   }
