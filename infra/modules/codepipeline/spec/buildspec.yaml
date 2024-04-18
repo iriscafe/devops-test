@@ -10,7 +10,6 @@ phases:
       - curl -o kubectl https://amazon-eks.s3.$AWS_DEFAULT_REGION.amazonaws.com/1.15.10/2020-02-22/bin/darwin/amd64/kubectl
       - chmod +x ./kubectl
       - kubectl version --short --client
-      - pip install --upgrade pip
   pre_build:
     commands:
       - aws eks --region $AWS_DEFAULT_REGION update-kubeconfig --name $CLUSTER_NAME
