@@ -177,7 +177,7 @@ resource "aws_codebuild_project" "python-api-codebuild" {
     }
 
   }
-# Here i specify where to find the source code for building. in our case buildspec.yaml which resides in our repo. You can omit using a buildspec file and just specify the steps here. Refer to terraform documentation for this.
+  
   source {
     type            = "GITHUB"
     location        = "https://github.com/iriscafe/devops-test"
