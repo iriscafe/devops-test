@@ -50,7 +50,7 @@ metadata:
     argocd.argoproj.io/secret-type: repository
 stringData:
   type: git
-  url: git@github.com:iriscafe/kubernete-chall.git
+  url: git@github.com:iriscafe/devops-test.git
   sshPrivateKey: ${local.ssh_private_key}
 YAML  
 }
@@ -69,8 +69,8 @@ spec:
     namespace: application
     server: "https://kubernetes.default.svc"
   source:
-    path: "helm/apigo"
-    repoURL: "git@github.com:iriscafe/kubernete-chall.git"
+    path: "infra/helm/my-python-app"
+    repoURL: "git@github.com:iriscafe/devops-test.git"
     targetRevision: "HEAD"
     helm:
       valueFiles:
@@ -105,8 +105,8 @@ spec:
     namespace: monitoring
     server: "https://kubernetes.default.svc"
   source:
-    path: "helm/grafana"
-    repoURL: "git@github.com:iriscafe/kubernete-chall.git"
+    path: "infra/helm/grafana"
+    repoURL: "git@github.com:iriscafe/devops-test.git"
     targetRevision: "HEAD"
     helm:
       valueFiles:
@@ -145,8 +145,8 @@ spec:
     namespace: monitoring
     server: "https://kubernetes.default.svc"
   source:
-    path: "helm/prometheus"
-    repoURL: "git@github.com:iriscafe/kubernete-chall.git"
+    path: "infra/helm/prometheus"
+    repoURL: "git@github.com:iriscafe/devops-test.git"
     targetRevision: "HEAD"
     helm:
       valueFiles:
@@ -185,8 +185,8 @@ spec:
     namespace: monitoring
     server: "https://kubernetes.default.svc"
   source:
-    path: "helm/kube-metrics"
-    repoURL: "git@github.com:iriscafe/kubernete-chall.git"
+    path: "infra/helm/kube-metrics"
+    repoURL: "git@github.com:iriscafe/devops-test.git"
     targetRevision: "HEAD"
     helm:
       valueFiles:
