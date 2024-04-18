@@ -17,3 +17,12 @@ module "eks" {
     subnets = [module.vpc.subnet_public_one_id, module.vpc.subnet_public_two_id, module.vpc.subnet_private_one_id, module.vpc.subnet_private_two_id]
   }
 }
+
+module "codepipeline"{
+
+  depends_on = [
+    module.eks
+  ]
+
+  source = "./modules/codepipeline"
+}
