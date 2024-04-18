@@ -182,6 +182,6 @@ resource "aws_codebuild_project" "python-api-codebuild" {
     type            = "GITHUB"
     location        = "https://github.com/iriscafe/devops-test"
     git_clone_depth = 1
-    buildspec       = "./modules/codepipeline/spec/buildspec.yaml"
+    buildspec       = "./infra/modules/codepipeline/spec/buildspec.yaml"
   }
 }
