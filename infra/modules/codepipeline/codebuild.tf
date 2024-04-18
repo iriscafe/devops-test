@@ -161,7 +161,7 @@ resource "aws_codebuild_project" "python-api-codebuild" {
     }
     environment_variable {
       name = "IMAGE_REPO_NAME"
-      value = "app_python"
+      value = "app-repository"
     }
     environment_variable {
       name = "AWS_DEFAULT_REGION"
