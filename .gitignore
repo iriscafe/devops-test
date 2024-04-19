@@ -9,3 +9,4 @@ infra/.terraform/providers/registry.terraform.io/gavinbunney/kubectl/1.14.0/linu
 infra/.terraform/providers/registry.terraform.io/gavinbunney/kubectl/1.14.0/linux_amd64/terraform-provider-kubectl_v1.14.0
 infra/.terraform/providers/registry.terraform.io/hashicorp/helm/2.5.1/linux_amd64/terraform-provider-helm_v2.5.1_x5
 infra/.terraform/providers/registry.terraform.io/hashicorp/kubernetes/2.29.0/linux_amd64/terraform-provider-kubernetes_v2.29.0_x5
+infra/modules/argocd/ssh_key.txt
