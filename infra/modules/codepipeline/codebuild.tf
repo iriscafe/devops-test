@@ -126,9 +126,8 @@ resource "aws_iam_role_policy" "s3_access" {
 }
 
 resource "aws_ecr_repository" "prod-app-repository" {
-  name                 = "app-repository"
-  image_tag_mutability = "MUTABLE"
-  force_delete = true
+  name                 = var.ecr_repository
+  image_tag_mutability = var.tag_mutability
 
 
   image_scanning_configuration {
@@ -145,31 +144,31 @@ resource "aws_codebuild_project" "python-api-codebuild" {
   artifacts {
     type           = "S3"
     location       = aws_s3_bucket.codepipeline_bucket.bucket
-    name           = "python-api-build-artifacts"
+    name           = var.bucket_pipeline
     namespace_type = "BUILD_ID"
   }
 
   environment {
     privileged_mode = true
-    compute_type                = "BUILD_GENERAL1_MEDIUM"
-    image                       = "aws/codebuild/standard:5.0"
-    type                        = "LINUX_CONTAINER"
+    compute_type                = var.compute_type
+    image                       = var.image_cb
+    type                        = var.type_cb
     image_pull_credentials_type = "CODEBUILD"
     environment_variable {
       name = "IMAGE_TAG"
-      value = "latest"
+      value = var.tag_cb
     }
     environment_variable {
       name = "IMAGE_REPO_NAME"
-      value = "app-repository"
+      value = var.ecr_repository
     }
     environment_variable {
       name = "AWS_DEFAULT_REGION"
-      value = "us-east-2"
+      value = var.region
     }
     environment_variable {
       name = "AWS_ACCOUNT_ID"
-      value = "332241128212"
+      value = var.accountID
     }
     environment_variable {
       name = "CLUSTER_NAME"
@@ -179,9 +178,9 @@ resource "aws_codebuild_project" "python-api-codebuild" {
   }
   
   source {
-    type            = "GITHUB"
-    location        = "https://github.com/iriscafe/devops-test"
+    type            = var.type_resource_cb
+    location        = var.location_url
     git_clone_depth = 1
-    buildspec       = "./infra/modules/codepipeline/spec/buildspec.yaml"
+    buildspec       = var.path_buildspec
   }
 }
