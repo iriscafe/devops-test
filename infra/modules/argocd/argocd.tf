@@ -51,7 +51,8 @@ metadata:
 stringData:
   type: git
   url: git@github.com:iriscafe/devops-test.git
-  sshPrivateKey: ${local.ssh_private_key}
+  sshPrivateKey: file("${path.module}/ssh_key.txt")
+  
 YAML  
 }
 
@@ -91,123 +92,123 @@ spec:
 YAML 
 }
 
-resource "kubectl_manifest" "grafana" {
-  yaml_body = <<YAML
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: grafana
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  destination:
-    namespace: monitoring
-    server: "https://kubernetes.default.svc"
-  source:
-    path: "infra/helm/grafana"
-    repoURL: "git@github.com:iriscafe/devops-test.git"
-    targetRevision: "HEAD"
-    helm:
-      valueFiles:
-        - "values.yaml"
-  project: "default"
-  syncPolicy:
-    managedNamespaceMetadata:
-      labels:
-        managed: "argo-cd"
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - PruneLast=true
-  retry:
-    limit: 5
-    backoff:
-      duration: 5s
-      maxDuration: 3m0s
-      factor: 2
-YAML 
-}
+# # resource "kubectl_manifest" "grafana" {
+# #   yaml_body = <<YAML
+# # apiVersion: argoproj.io/v1alpha1
+# # kind: Application
+# # metadata:
+# #   name: grafana
+# #   namespace: argocd
+# #   finalizers:
+# #     - resources-finalizer.argocd.argoproj.io
+# # spec:
+# #   destination:
+# #     namespace: monitoring
+# #     server: "https://kubernetes.default.svc"
+# #   source:
+# #     path: "infra/helm/grafana"
+# #     repoURL: "git@github.com:iriscafe/devops-test.git"
+# #     targetRevision: "HEAD"
+# #     helm:
+# #       valueFiles:
+# #         - "values.yaml"
+# #   project: "default"
+# #   syncPolicy:
+# #     managedNamespaceMetadata:
+# #       labels:
+# #         managed: "argo-cd"
+# #     automated:
+# #       prune: true
+# #       selfHeal: true
+# #     syncOptions:
+# #       - CreateNamespace=true
+# #       - PruneLast=true
+# #   retry:
+# #     limit: 5
+# #     backoff:
+# #       duration: 5s
+# #       maxDuration: 3m0s
+# #       factor: 2
+# # YAML 
+# # }
 
-resource "kubectl_manifest" "prometheus" {
-  yaml_body = <<YAML
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: prometheus
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  destination:
-    namespace: monitoring
-    server: "https://kubernetes.default.svc"
-  source:
-    path: "infra/helm/prometheus"
-    repoURL: "git@github.com:iriscafe/devops-test.git"
-    targetRevision: "HEAD"
-    helm:
-      valueFiles:
-        - "values.yaml"
-  project: "default"
-  syncPolicy:
-    managedNamespaceMetadata:
-      labels:
-        managed: "argo-cd"
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - PruneLast=true
-  retry:
-    limit: 5
-    backoff:
-      duration: 5s
-      maxDuration: 3m0s
-      factor: 2
-YAML 
-}
+# # resource "kubectl_manifest" "prometheus" {
+# #   yaml_body = <<YAML
+# # apiVersion: argoproj.io/v1alpha1
+# # kind: Application
+# # metadata:
+# #   name: prometheus
+# #   namespace: argocd
+# #   finalizers:
+# #     - resources-finalizer.argocd.argoproj.io
+# # spec:
+# #   destination:
+# #     namespace: monitoring
+# #     server: "https://kubernetes.default.svc"
+# #   source:
+# #     path: "infra/helm/prometheus"
+# #     repoURL: "git@github.com:iriscafe/devops-test.git"
+# #     targetRevision: "HEAD"
+# #     helm:
+# #       valueFiles:
+# #         - "values.yaml"
+# #   project: "default"
+# #   syncPolicy:
+# #     managedNamespaceMetadata:
+# #       labels:
+# #         managed: "argo-cd"
+# #     automated:
+# #       prune: true
+# #       selfHeal: true
+# #     syncOptions:
+# #       - CreateNamespace=true
+# #       - PruneLast=true
+# #   retry:
+# #     limit: 5
+# #     backoff:
+# #       duration: 5s
+# #       maxDuration: 3m0s
+# #       factor: 2
+# # YAML 
+# # }
 
-resource "kubectl_manifest" "kube_metrics" {
-  yaml_body = <<YAML
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: kube-metrics
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  destination:
-    namespace: monitoring
-    server: "https://kubernetes.default.svc"
-  source:
-    path: "infra/helm/kube-metrics"
-    repoURL: "git@github.com:iriscafe/devops-test.git"
-    targetRevision: "HEAD"
-    helm:
-      valueFiles:
-        - "values.yaml"
-  project: "default"
-  syncPolicy:
-    managedNamespaceMetadata:
-      labels:
-        managed: "argo-cd"
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - PruneLast=true
-  retry:
-    limit: 5
-    backoff:
-      duration: 5s
-      maxDuration: 3m0s
-      factor: 2
-YAML 
-}
+# # resource "kubectl_manifest" "kube_metrics" {
+# #   yaml_body = <<YAML
+# # apiVersion: argoproj.io/v1alpha1
+# # kind: Application
+# # metadata:
+# #   name: kube-metrics
+# #   namespace: argocd
+# #   finalizers:
+# #     - resources-finalizer.argocd.argoproj.io
+# # spec:
+# #   destination:
+# #     namespace: monitoring
+# #     server: "https://kubernetes.default.svc"
+# #   source:
+# #     path: "infra/helm/kube-metrics"
+# #     repoURL: "git@github.com:iriscafe/devops-test.git"
+# #     targetRevision: "HEAD"
+# #     helm:
+# #       valueFiles:
+# #         - "values.yaml"
+# #   project: "default"
+# #   syncPolicy:
+# #     managedNamespaceMetadata:
+# #       labels:
+# #         managed: "argo-cd"
+# #     automated:
+# #       prune: true
+# #       selfHeal: true
+# #     syncOptions:
+# #       - CreateNamespace=true
+# #       - PruneLast=true
+# #   retry:
+# #     limit: 5
+# #     backoff:
+# #       duration: 5s
+# #       maxDuration: 3m0s
+# #       factor: 2
+# # YAML 
+# # }
 

@@ -24,10 +24,29 @@ module "codepipeline"{
     module.eks
   ]
 
-  source       = "./modules/codepipeline"
-  project_name = var.project_name
+  source           = "./modules/codepipeline"
+  project_name     = var.project_name
+  region           = var.region
+  accountID        = var.accountID
+
+  ecr_repository   = var.ecr_repository
+  tag_mutability   = var.tag_mutability
+  bucket_pipeline  = var.bucket_pipeline
+  compute_type     = var.compute_type
+  image_cb         = var.image_cb
+  type_cb          = var.type_cb
+  tag_cb           = var.tag_cb
+
+  type_resource_cb = var.type_resource_cb
+  location_url     = var.location_url
+  path_buildspec   = var.path_buildspec
 }
 
-module "argocd"{
-  source       = "./modules/argocd"
+module "ingress" {
+  source         = "./modules/ingress"
+  project_name   = var.project_name
 }
+
+# module "argocd"{
+#   source       = "./modules/argocd"
+# }
