@@ -4,8 +4,6 @@ WORKDIR /app
 
 COPY . .
 
-RUN pip install --upgrade pip
-
 RUN pip install --no-cache-dir Flask gunicorn
 
 EXPOSE 5000
