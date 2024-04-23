@@ -47,6 +47,7 @@ module "ingress" {
   project_name   = var.project_name
 }
 
-# module "argocd"{
-#   source       = "./modules/argocd"
-# }
+module "argocd"{
+  source       = "./modules/argocd"
+  project_name = var.project_name
+}

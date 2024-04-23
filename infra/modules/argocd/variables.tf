@@ -33,3 +33,7 @@ variable "ingress_cert_issuer_annotation" {
   description = "The cluster certificate issuer to use when creating a TLS certificate for the ingress. needs to be set here so the tls block is defined on the ingress resource."
   default     = {}
 }
+
+variable "project_name"{
+  type        = string
+}
