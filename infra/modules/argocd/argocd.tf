@@ -30,7 +30,7 @@ resource "kubernetes_ingress_v1" "argo_cd_ingress" {
       http {
         path {
           path_type = "Prefix"
-          path      = "/"
+          path      = "/argocd"
           backend {
             service {
               name = "argocd-server"
@@ -61,7 +61,6 @@ stringData:
   
 YAML  
 }
-    
 
 resource "kubectl_manifest" "app" {
   yaml_body = <<YAML
@@ -77,7 +76,7 @@ spec:
     namespace: application
     server: "https://kubernetes.default.svc"
   source:
-    path: "infra/helm/my-python-app"
+    path: "helm/my-python-app"
     repoURL: "git@github.com:iriscafe/devops-test.git"
     targetRevision: "HEAD"
     helm:
@@ -113,7 +112,7 @@ spec:
     namespace: monitoring
     server: "https://kubernetes.default.svc"
   source:
-    path: "infra/helm/grafana"
+    path: "helm/grafana"
     repoURL: "git@github.com:iriscafe/devops-test.git"
     targetRevision: "HEAD"
     helm:
@@ -153,7 +152,7 @@ spec:
     namespace: monitoring
     server: "https://kubernetes.default.svc"
   source:
-    path: "infra/helm/prometheus"
+    path: "helm/prometheus"
     repoURL: "git@github.com:iriscafe/devops-test.git"
     targetRevision: "HEAD"
     helm:
@@ -193,7 +192,7 @@ spec:
     namespace: monitoring
     server: "https://kubernetes.default.svc"
   source:
-    path: "infra/helm/kube-metrics"
+    path: "helm/kube-metrics"
     repoURL: "git@github.com:iriscafe/devops-test.git"
     targetRevision: "HEAD"
     helm:

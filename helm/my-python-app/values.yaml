@@ -6,14 +6,14 @@ service:
   name: app
   namespace:
     create: true
-  type: ClusterIP
+  type: LoadBalancer
   port: 8080
-ingress:
-  enabled: false
-  hosts:
-    - host: golang-api.local
-      paths:
-        - /api
+# ingress:
+#   enabled: false
+#   hosts:
+#     - host: app.local
+#       paths:
+#         - /app
 resources:
   requests:
     memory: "64Mi"

@@ -44,7 +44,6 @@ module "codepipeline"{
 
 module "ingress" {
   source         = "./modules/ingress"
-  project_name   = var.project_name
 }
 
 module "argocd"{

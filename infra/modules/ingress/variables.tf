@@ -1,15 +1,10 @@
-variable "ingress_nginx_helm_version" {
-  type        = string
-  description = "The Helm version for the nginx ingress controller."
-  default     = "4.7.1"
+variable "namespace" {
+    type = string
+    default = "ingress"
 }
 
-variable "ingress_nginx_namespace" {
+variable "node_selector" {
   type        = string
-  description = "The nginx ingress namespace (it will be created if needed)."
-  default     = "ingress-nginx"
-}
-
-variable "project_name"{
-    type      = string
+  default     = "general"
+  description = "Node labels for K8S Pod assignment of the Deployments/StatefulSets/DaemonSets"
 }
