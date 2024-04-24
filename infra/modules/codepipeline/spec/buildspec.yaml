@@ -12,11 +12,15 @@ phases:
       - kubectl version --short --client
   pre_build:
     commands:
+      - curl -L https://github.com/mikefarah/yq/releases/download/v4.13.2/yq_linux_amd64 -o /usr/bin/yq
+      - chmod +x /usr/bin/yq
       - aws eks --region $AWS_DEFAULT_REGION update-kubeconfig --name $CLUSTER_NAME
       - cat ~/.kube/config
       - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
       - TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
       - echo $TAG
+      - yq e ".image.tag = \"$TAG\"" -i ./helm/my-python-app/values.yaml
+
   build:
     commands:
       - echo Build started on `date`
@@ -27,10 +31,21 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
+      - echo Pushing to Git value...
+      - git config --global user.email "$GIT_EMAIL"
+      - git config --global user.name "$GIT_NAME"
+      - git add ./helm/my-python-app/values.yaml
+      - git commit -m "codebuild changing tag"
+      - git remote set-url origin https://$GIT_TOKEN@github.com/iriscafe/devops-test.git
+      - git push
       - echo Pushing the Docker images...
       - REPO_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - docker push $REPOSITORY_URI:$TAG
+
+      - echo Writing image definitions file...
+      - printf '[{"name":"%s","imageUri":"%s"}]' "$CONTAINER_NAME" "$REPO_URI:$IMAGE_TAG" | tee imagedefinitions.json
+
       - echo Writing image definitions file...
       - printf '[{"name":"%s","imageUri":"%s"}]' "$CONTAINER_NAME" "$REPO_URI:$IMAGE_TAG" | tee imagedefinitions.json
 artifacts:

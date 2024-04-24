@@ -174,7 +174,18 @@ resource "aws_codebuild_project" "python-api-codebuild" {
       name = "CLUSTER_NAME"
       value = "${var.project_name}-${var.stage}-eks"
     }
-
+    environment_variable {
+      name = "GIT_NAME"
+      value = "iriscafe"
+    }
+    environment_variable {
+      name = "GIT_EMAIL"
+      value = "irislisboa.c@gmail.com"
+    }
+    environment_variable {
+      name = "GIT_TOKEN"
+      value = file("${path.module}/gitToken.txt")
+    }
   }
   
   source {
