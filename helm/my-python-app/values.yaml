@@ -6,7 +6,7 @@ service:
   name: app
   namespace:
     create: true
-  type: ClusterIP
+  type: LoadBalancer
   port: 5000
 ingress:
   enabled: false
