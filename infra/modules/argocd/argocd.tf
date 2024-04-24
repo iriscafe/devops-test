@@ -62,33 +62,43 @@ stringData:
   
 YAML  
 }
-
 resource "kubectl_manifest" "application" {
   yaml_body = <<YAML
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: application
+  name: app
+  namespace: application
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    name: ''
     namespace: application
-    server: 'https://kubernetes.default.svc'
+    server: "https://kubernetes.default.svc"
   source:
-    path: helm/my-python-app
-    repoURL: 'git@github.com:iriscafe/devops-test.git'
-    targetRevision: HEAD
+    path: "helm/my-python-app"
+    repoURL: "git@github.com:iriscafe/devops-test.git"
+    targetRevision: "HEAD"
     helm:
       valueFiles:
-        - values.yaml
-  sources: []
-  project: default
+        - "values.yaml"
+  project: "default"
   syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        managed: "argo-cd"
     automated:
-      prune: false
-      selfHeal: false
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      - PruneLast=true
+  retry:
+    limit: 5
+    backoff:
+      duration: 5s
+      maxDuration: 3m0s
+      factor: 2
 YAML 
 }
 
