@@ -192,6 +192,8 @@ syncPolicy:
     - CreateNamespace=true
     - PruneLast=true
 
+YAML
+
 }
 
 resource "kubectl_manifest" "kube_metrics" {
@@ -199,7 +201,7 @@ resource "kubectl_manifest" "kube_metrics" {
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kube-metrics
+  name: kube_metrics
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -208,7 +210,7 @@ spec:
     namespace: monitoring
     server: "https://kubernetes.default.svc"
   source:
-    path: "helm/kube-metrics"
+    path: "helm/kube_metrics"
     repoURL: "git@github.com:iriscafe/devops-test.git"
     targetRevision: "HEAD"
     helm:
