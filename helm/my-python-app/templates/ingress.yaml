@@ -14,5 +14,5 @@ spec:
               service:
                 name: {{ .Values.service.name }}
                 port:
-                  number: 8080
+                  number: 5000
 {{- end }}
