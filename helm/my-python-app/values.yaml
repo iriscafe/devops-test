@@ -8,12 +8,12 @@ service:
     create: true
   type: LoadBalancer
   port: 8080
-# ingress:
-#   enabled: false
-#   hosts:
-#     - host: app.local
-#       paths:
-#         - /app
+ingress:
+  enabled: false
+  hosts:
+    - host: app.local
+      paths:
+        - /app
 resources:
   requests:
     memory: "64Mi"
