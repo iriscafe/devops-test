@@ -32,6 +32,7 @@ phases:
       - echo Pushing to Git value...
       - git config --global user.email "$GIT_EMAIL"
       - git config --global user.name "$GIT_NAME"
+      - git pull
       - yq e ".image.tag = \"$TAG\"" -i ./helm/my-python-app/values.yaml
       - git add ./helm/my-python-app/values.yaml
       - git commit -m "codebuild changing tag"
