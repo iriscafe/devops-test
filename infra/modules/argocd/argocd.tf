@@ -22,7 +22,7 @@ resource "kubernetes_ingress_v1" "argo_cd_ingress" {
   metadata {
     name      = "app"
     namespace = "application"
-    }
+  }
 
   spec {
     ingress_class_name = "nginx"
@@ -33,9 +33,48 @@ resource "kubernetes_ingress_v1" "argo_cd_ingress" {
           path      = "/"
           backend {
             service {
-              name = "app"
+              name = "argocd-server"
               port {
                 number = 80
+              }
+            }
+          }
+        }
+
+        path {
+          path_type = "Prefix"
+          path      = "/app"
+          backend {
+            service {
+              name = "app"
+              port {
+                number = 8080
+              }
+            }
+          }
+        }
+
+        path {
+          path_type = "Prefix"
+          path      = "/grafana"
+          backend {
+            service {
+              name = "grafana"
+              port {
+                number = 3000
+              }
+            }
+          }
+        }
+
+        path {
+          path_type = "Prefix"
+          path      = "/prometheus"
+          backend {
+            service {
+              name = "prometheus-server"
+              port {
+                number = 9090
               }
             }
           }
@@ -44,6 +83,7 @@ resource "kubernetes_ingress_v1" "argo_cd_ingress" {
     }
   }
 }
+
 
 resource "kubectl_manifest" "argosecret" {
   yaml_body = <<YAML
@@ -62,7 +102,7 @@ stringData:
 YAML  
 }
 
-resource "kubectl_manifest" "app" {
+resource "kubectl_manifest" "application" {
   yaml_body = <<YAML
 apiVersion: argoproj.io/v1alpha1
 kind: Application

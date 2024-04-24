@@ -1,3 +1,7 @@
+global:
+  image:
+    tag: "v2.6.6"
+
 controller:
   replicas: 1
 
@@ -5,6 +9,8 @@ server:
   replicas: 1
   service:
     type: LoadBalancer
+  extraArgs:
+  - --insecure
 
 repoServer:
   replicas: 1

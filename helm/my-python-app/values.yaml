@@ -7,7 +7,7 @@ service:
   namespace:
     create: true
   type: ClusterIP
-  port: 8080
+  port: 5000
 ingress:
   enabled: false
   hosts:
