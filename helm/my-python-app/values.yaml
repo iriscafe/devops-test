@@ -1,13 +1,13 @@
 replicaCount: 1
 image:
   repository: iriscafe50/app_python
-  tag: 
+  tag: latest
 service:
   name: app
   namespace:
     create: true
   type: LoadBalancer
-  port: 8080
+  port: 80
 ingress:
   enabled: false
   hosts:
