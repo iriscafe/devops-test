@@ -4,13 +4,14 @@
 - Desenvolver e administrar um ambiente Kubernetes altamente eficaz na AWS, seguindo as melhores práticas de DevOps.
 
 Fluxograma que idealizei:
-
+!['](URL_da_sua_imagem)
 
 FLuxograma que fiz:
+!['](URL_da_sua_imagem)
 
 ## Tecnologias Escolhidas e Justificativas:
 - Iniciei dockerizando a aplicação e, ao enfrentar dificuldades para expor a API, descobri a necessidade de ajustar um bind para o Gunicorn.
-- Utilizei o Terraform para criar toda a infraestrutura inicial, incluindo VPC, EKS, CodePipeline com CodeBuild e ArgoCD.
+- Utilizei o Terraform para criar toda a infraestrutura inicial, incluindo VPC, EKS, CodePipeline com CodeBuild e ArgoCD. Poderia escolher fazer com cloudfro
 - O CI/CD é realizado pelo CodePipeline junto ao CodeBuild, onde o versionamento de imagem é feito. 
 - A imagem é enviada para o DockerHub e após o build no coldbuild, é transferida para o ECR para garantir rastreabilidade e versionamento. A tag da imagem no values do Helm Chart é atualizada com o hash do último commit para que o ArgoCD possa implantar a partir da imagem adicionada ao ECR.
 - Além disso, foram criados manifestos para implantação de um ambiente de monitoramento usando Grafana e Prometheus, escolhidos por sua facilidade de gerenciamento através dos Helm Charts.
@@ -20,7 +21,9 @@ FLuxograma que fiz:
 - Implementar o ingress NGINX, por falta do domínio acabei optando por usar LoadBalancar, mas acho que seria muito mais prático o NGINX
 - usar o kustomize pra diferenciar os ambientes e também facilitar o versionamento.
 - Uso do cert manager para garantir mais seguranças entre as comunicações
+- Guardar algumas chaves (ssh e toke) usando o secrets da aws por exemplo, acho que tornaria o projeto mais seguro.
 - Implementar o cluster Autoscaler para escalabilidade automática do número de nós no cluster, garantindo resposta dinâmica à demanda e economia de recursos, mas devido ao tempo não consegui.
+- Implementar toda a infra dividindo entre backend e deployment, onde em backend seria feito a instalação dos recursos e no deployment a execução de toda aplicação sem a necessidade de ajuste manual (clickOps).
 
 # Histórico de Versões
 
