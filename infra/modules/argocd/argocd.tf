@@ -20,8 +20,8 @@ resource "kubernetes_ingress_v1" "argo_cd_ingress" {
   depends_on = [helm_release.argocd]
 
   metadata {
-    name      = "argocd"
-    namespace = var.namespace
+    name      = "app"
+    namespace = "application"
     }
 
   spec {
@@ -33,7 +33,7 @@ resource "kubernetes_ingress_v1" "argo_cd_ingress" {
           path      = "/"
           backend {
             service {
-              name = "argocd-server"
+              name = "app"
               port {
                 number = 80
               }
@@ -57,7 +57,7 @@ metadata:
 stringData:
   type: git
   url: git@github.com:iriscafe/devops-test.git
-  sshPrivateKey: "file("${path.module}/ssh_key.txt")"
+  sshPrivateKey: file("${path.module}/ssh_key.txt")
   
 YAML  
 }

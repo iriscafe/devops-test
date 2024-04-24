@@ -1,7 +1,13 @@
-global:
-  image:
-    tag: "v2.6.6"
+controller:
+  replicas: 1
 
 server:
-  extraArgs:
-  - --insecure
+  replicas: 1
+  service:
+    type: LoadBalancer
+
+repoServer:
+  replicas: 1
+
+applicationSet:
+  replicaCount: 1
