@@ -184,7 +184,7 @@ resource "aws_codebuild_project" "python-api-codebuild" {
     }
     environment_variable {
       name = "GIT_TOKEN"
-      value = file("${path.module}/gitToken.txt")
+      value = "./spec/gitToken.txt"
     }
   }
   

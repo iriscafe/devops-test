@@ -20,8 +20,8 @@ resource "kubernetes_ingress_v1" "argo_cd_ingress" {
   depends_on = [helm_release.argocd]
 
   metadata {
-    name      = "app"
-    namespace = "application"
+    name      = "argocd"
+    namespace = "argocd"
   }
 
   spec {
@@ -36,45 +36,6 @@ resource "kubernetes_ingress_v1" "argo_cd_ingress" {
               name = "argocd-server"
               port {
                 number = 80
-              }
-            }
-          }
-        }
-
-        path {
-          path_type = "Prefix"
-          path      = "/api/comment/"
-          backend {
-            service {
-              name = "app"
-              port {
-                number = 8000
-              }
-            }
-          }
-        }
-
-        path {
-          path_type = "Prefix"
-          path      = "/grafana"
-          backend {
-            service {
-              name = "grafana"
-              port {
-                number = 3000
-              }
-            }
-          }
-        }
-
-        path {
-          path_type = "Prefix"
-          path      = "/prometheus"
-          backend {
-            service {
-              name = "prometheus-server"
-              port {
-                number = 9090
               }
             }
           }
@@ -97,7 +58,7 @@ metadata:
 stringData:
   type: git
   url: git@github.com:iriscafe/devops-test.git
-  sshPrivateKey: file("${path.module}/ssh_key.txt")
+  sshPrivateKey: ./ssh_key.txt
   
 YAML  
 }

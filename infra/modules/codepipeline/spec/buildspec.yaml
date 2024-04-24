@@ -19,7 +19,6 @@ phases:
       - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
       - TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
       - echo $TAG
-      - yq e ".image.tag = \"$TAG\"" -i ./helm/my-python-app/values.yaml
 
   build:
     commands:
@@ -34,6 +33,7 @@ phases:
       - echo Pushing to Git value...
       - git config --global user.email "$GIT_EMAIL"
       - git config --global user.name "$GIT_NAME"
+      - yq e ".image.tag = \"$TAG\"" -i ./helm/my-python-app/values.yaml
       - git add ./helm/my-python-app/values.yaml
       - git commit -m "codebuild changing tag"
       - git remote set-url origin https://$GIT_TOKEN@github.com/iriscafe/devops-test.git
