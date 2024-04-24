@@ -25,3 +25,31 @@ resource "helm_release" "ingress_nginx" {
     }
   }
 }
+
+resource "kubernetes_ingress_v1" "api_ingress" {
+
+  metadata {
+    name      = "app"
+    namespace = var.namespace
+  }
+
+  spec {
+    ingress_class_name = "nginx"
+    rule {
+      http {
+        path {
+          path_type = "Prefix"
+          path      = "/api"
+          backend {
+            service {
+              name = "app"
+              port {
+                number = 8080
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

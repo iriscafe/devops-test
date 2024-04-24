@@ -30,7 +30,7 @@ resource "kubernetes_ingress_v1" "argo_cd_ingress" {
       http {
         path {
           path_type = "Prefix"
-          path      = "/argocd"
+          path      = "/"
           backend {
             service {
               name = "argocd-server"
@@ -57,7 +57,7 @@ metadata:
 stringData:
   type: git
   url: git@github.com:iriscafe/devops-test.git
-  sshPrivateKey: file("${path.module}/ssh_key.txt")
+  sshPrivateKey: "file("${path.module}/ssh_key.txt")"
   
 YAML  
 }
@@ -68,33 +68,26 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: application
-  namespace: ${var.namespace}
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
+    name: ''
     namespace: application
-    server: "https://kubernetes.default.svc"
+    server: 'https://kubernetes.default.svc'
   source:
-    path: "helm/my-python-app"
-    repoURL: "git@github.com:iriscafe/devops-test.git"
-    targetRevision: "HEAD"
+    path: helm/my-python-app
+    repoURL: 'git@github.com:iriscafe/devops-test.git'
+    targetRevision: HEAD
     helm:
       valueFiles:
-        - "values.yaml"
-  project: "default"
+        - values.yaml
+  sources: []
+  project: default
   syncPolicy:
-    managedNamespaceMetadata:
-      labels:
-        managed: "argo-cd"
+    automated:
+      prune: false
+      selfHeal: false
     syncOptions:
       - CreateNamespace=true
-  retry:
-    limit: 5
-    backoff:
-      duration: 5s
-      maxDuration: 3m0s
-      factor: 2
 YAML 
 }
 

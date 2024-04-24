@@ -1,6 +1,6 @@
 variable "namespace" {
     type = string
-    default = "ingress"
+    default = "application"
 }
 
 variable "node_selector" {
