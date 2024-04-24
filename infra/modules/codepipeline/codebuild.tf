@@ -128,6 +128,7 @@ resource "aws_iam_role_policy" "s3_access" {
 resource "aws_ecr_repository" "prod-app-repository" {
   name                 = var.ecr_repository
   image_tag_mutability = var.tag_mutability
+  force_delete        = true 
 
 
   image_scanning_configuration {

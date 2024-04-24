@@ -13,3 +13,4 @@ infra/modules/argocd/ssh_key.txt
 infra/.terraform/providers/registry.terraform.io/hashicorp/aws/5.46.0/linux_amd64/terraform-provider-aws_v5.46.0_x5
 infra/.terraform/providers/registry.terraform.io/hashicorp/helm/2.13.1/linux_amd64/terraform-provider-helm_v2.13.1_x5
 infra/.terraform/providers/registry.terraform.io/hashicorp/null/3.2.2/linux_amd64/terraform-provider-null_v3.2.2_x5
+infra/modules/codepipeline/spec/gitToken.txt
