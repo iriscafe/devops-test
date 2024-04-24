@@ -36,13 +36,14 @@ module "codepipeline"{
   image_cb         = var.image_cb
   type_cb          = var.type_cb
   tag_cb           = var.tag_cb
+  git_token        = var.git_token
 
   type_resource_cb = var.type_resource_cb
   location_url     = var.location_url
   path_buildspec   = var.path_buildspec
 }
 
-# module "argocd"{
-#   source       = "./modules/argocd"
-#   project_name = var.project_name
-# }
+module "argocd"{
+  source       = "./modules/argocd"
+  project_name = var.project_name
+}

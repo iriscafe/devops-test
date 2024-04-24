@@ -54,3 +54,7 @@ variable "location_url" {
 variable "path_buildspec" {
   type    = string
 }
+
+variable "git_token"{
+  type    = string
+}
