@@ -13,7 +13,7 @@ ingress:
   hosts:
     - host: app.local
       paths:
-        - /app
+        - /api/comment/
 resources:
   requests:
     memory: "64Mi"

@@ -43,12 +43,12 @@ resource "kubernetes_ingress_v1" "argo_cd_ingress" {
 
         path {
           path_type = "Prefix"
-          path      = "/app"
+          path      = "/api/comment/"
           backend {
             service {
               name = "app"
               port {
-                number = 8080
+                number = 5000
               }
             }
           }
