@@ -42,10 +42,6 @@ module "codepipeline"{
   path_buildspec   = var.path_buildspec
 }
 
-module "ingress" {
-  source         = "./modules/ingress"
-}
-
 module "argocd"{
   source       = "./modules/argocd"
   project_name = var.project_name

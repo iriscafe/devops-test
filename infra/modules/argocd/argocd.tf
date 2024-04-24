@@ -48,7 +48,7 @@ resource "kubernetes_ingress_v1" "argo_cd_ingress" {
             service {
               name = "app"
               port {
-                number = 5000
+                number = 8000
               }
             }
           }
