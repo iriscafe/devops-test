@@ -173,42 +173,25 @@ YAML
 
 resource "kubectl_manifest" "prometheus" {
   yaml_body = <<YAML
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: prometheus
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  destination:
-    namespace: monitoring
-    server: "https://kubernetes.default.svc"
-  source:
-    path: "helm/prometheus"
-    repoURL: "git@github.com:iriscafe/devops-test.git"
-    targetRevision: "HEAD"
-    helm:
-      valueFiles:
-        - "values.yaml"
-  project: "default"
-  syncPolicy:
-    managedNamespaceMetadata:
-      labels:
-        managed: "argo-cd"
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - PruneLast=true
-  retry:
-    limit: 5
-    backoff:
-      duration: 5s
-      maxDuration: 3m0s
-      factor: 2
-YAML 
+project: default
+source:
+  repoURL: 'git@github.com:iriscafe/devops-test.git'
+  path: helm/prometheus
+  targetRevision: HEAD
+  helm:
+    valueFiles:
+      - values.yaml
+destination:
+  server: 'https://kubernetes.default.svc'
+  namespace: monitoring
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
+  syncOptions:
+    - CreateNamespace=true
+    - PruneLast=true
+
 }
 
 resource "kubectl_manifest" "kube_metrics" {
