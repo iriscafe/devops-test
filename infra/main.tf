@@ -42,7 +42,7 @@ module "codepipeline"{
   path_buildspec   = var.path_buildspec
 }
 
-module "argocd"{
-  source       = "./modules/argocd"
-  project_name = var.project_name
-}
+# module "argocd"{
+#   source       = "./modules/argocd"
+#   project_name = var.project_name
+# }
