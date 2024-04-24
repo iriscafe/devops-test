@@ -1,12 +1,7 @@
 replicaCount: 1
 image:
-<<<<<<< HEAD
   repository: 332241128212.dkr.ecr.us-east-2.amazonaws.com/app-repository
   tag: 
-=======
-  repository: iriscafe50/app_python
-  tag: 7ca1e633
->>>>>>> bb9164fe2e79f0684dd88400798f83f75243757f
 service:
   name: app
   namespace:
